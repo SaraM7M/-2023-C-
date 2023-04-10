@@ -18,7 +18,7 @@ constexpr size_t PAQUET_MAX = 54; // 13 * 4 + 2 jokers
 Carte* createStdPaquet(Carte paquet[], size_t size);
 void displayPaquet(Carte paquet[], size_t size);
 Carte* shufflePaquet(Carte paquet[], size_t size);
-
+void dealCards(Carte paquet[], size_t size, int numPlayers);
 int main()
 {
     Carte paquet[PAQUET_MAX];
@@ -32,6 +32,7 @@ int main()
     cout << "Izmeshani karti:\n";
     displayPaquet(paquet, PAQUET_MAX);
     cout<<"\n";
+    dealCards(paquet, PAQUET_MAX, 4);
     return 0;
 }
 Carte* createStdPaquet(Carte paquet[], std::size_t size)
@@ -72,4 +73,16 @@ Carte* shufflePaquet(Carte paquet[],size_t size)
 {
     random_shuffle(paquet, paquet+size);
     return paquet;
+}
+void dealCards(Carte paquet[], size_t size, int numPlayers)
+{
+    size_t cardsPerPlayer = size / numPlayers;
+    cout << "Karti po igrac:\n";
+    for(int i=0; i<numPlayers; ++i) {
+        cout << "Igrac " << i+1 << ": ";
+        for(size_t j=i*cardsPerPlayer; j<(i+1)*cardsPerPlayer; ++j) {
+            cout << paquet[j].ime << paquet[j].boja << " ";
+        }
+        cout << '\n';
+    }
 }
